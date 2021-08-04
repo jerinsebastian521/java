@@ -1,66 +1,79 @@
 import java.util.*;
+
 class Account
 {
-  int no;
-  String name;
-  String type;
-  int bal ;
-Account()
-{
-int no = 1;
-String name ="x";
-String type ="savings";
-int bal = 0;
-}
-
+int accno;
+String dname, acctype;
+double amount,balance;
 Scanner s = new Scanner(System.in);
-void details()
-{
-System.out.print("Enter name: ");
-name=s.nextLine();
-System.out.println("Balance:"+bal);
-}
-void deposit(int amount)
-{
-bal = bal+amount;
-}
-void withdraw(int amount)
-{
-bal=bal-amount;
-}
-void check()
-{
-System.out.println("Balance:"+bal);
-}
-public static void main(String[]  args)
-{
-int amount;
-Scanner s = new Scanner(System.in);
-Account ac = new Account();
-ac.details();
 
-System.out.print("Enter amount to deposit:");
-amount=s.nextInt();
-ac.deposit(amount);
-ac.check();
-
-
-
-System.out.print("Enter amount to withdraw: ");
-amount=s.nextInt();
-if(amount<ac.bal)
+public void getdata() 
 {
-ac.withdraw(amount);
+System.out.println("\nenter the account number : ");
+accno=s.nextInt();
+System.out.println("enter the name of the depositor : ");
+dname=s.next();
+System.out.println("enter the type of the account : ");
+acctype=s.next();
+System.out.println("enter the balance amount : ");
+balance=s.nextDouble();
+}
+
+public void deposit()
+{
+System.out.println("\naccount balance : "+balance);
+System.out.println("\nenter the amount to be deposited : ");
+amount=s.nextDouble();
+if (amount>0) 
+{
+balance+=amount;
 }
 else
 {
-System.out.println("Insufficient Balance,available:"+ac.bal);
-System.out.print("Enter amount to withdraw: ");
-amount=s.nextInt();
-ac.withdraw(amount);
+System.out.println("error: invalid amount!!!");
 }
-System.out.println("Name:"+ac.name);
-ac.check();
+}
 
+public void withdrawn()
+{
+System.out.println("\naccount balance : "+balance);
+System.out.println("\nenter the amount to be withdrawn : ");
+amount=s.nextDouble();
+if (amount>0 && amount<balance)
+{
+balance-=amount;
+}
+else
+{
+System.out.println("error: insufficient balance/invalid amount!!!");
+}
+}
+
+public void display()
+{
+System.out.println("\nname of the depositor : "+dname);
+System.out.println("account type : "+acctype);
+System.out.println("account balance : "+ balance);
+}
+
+public static void main(String args[])
+{
+int n=0;
+Scanner s1 = new Scanner(System.in);
+System.out.print("enter the limit : ");
+n=s1.nextInt();
+Account b[]=new Account[n];
+for(int i=0; i<n; i++) 
+{
+b[i]=new Account();
+b[i].getdata();
+}
+System.out.println("\n***ACCOUNT DETAILS***");
+for(int i=0; i<n; i++) 
+{
+b[i].deposit();
+b[i].withdrawn();
+b[i].display();
+}
 }
 }
